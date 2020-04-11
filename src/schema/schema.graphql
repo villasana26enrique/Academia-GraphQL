@@ -9,6 +9,27 @@ type Query {
     curso(curso: ID!): Curso!
 }
 
+type Mutation{
+    "Agregar un Nuevo Curso a la Academia"
+    cursoNuevo(curso: CursoInput!): Curso!
+    modificarCurso(curso: CursoInput!): Curso!
+    eliminarCurso(id: ID!): Curso!
+}
+
+input CursoInput{
+    id: ID
+    title: String!
+    description: String!
+    clases: Int!
+    time: Float!
+    level: Nivel = TODOS
+    logo: String!
+    path: String!
+    teacher: String!
+}
+
+
+
 "Información de los estudiantes"
 type Estudiante {
     "Identificativo del estudiante"
