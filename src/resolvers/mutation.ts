@@ -35,6 +35,17 @@ const mutation : IResolvers = {
                 return curso;
             }
             return respuestaError("No se ha encotrado el curso en la BD");
+        },
+        eliminarCurso(__: void, { id }) : any {
+            const borrarCurso = _.remove(database.cursos, function(curso){
+                return curso.id === id;
+            });
+
+            if( borrarCurso[0] === undefined ){
+                return respuestaError("No se ha encotrado ningún curso para eliminar con ese ID");
+            }
+
+            return borrarCurso[0];
         }
     }
 }
