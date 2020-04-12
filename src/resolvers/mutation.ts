@@ -17,9 +17,42 @@ const mutation : IResolvers = {
                 teacher: curso.teacher,
                 reviews: []
             }
+
+            if (database.cursos.filter(itemCurs => itemCurs.title === itemCurso.title).length === 0) {
+                database.cursos.push(itemCurso);
+                return itemCurso;
+            }
+
+            return {
+                id: "-1",
+                title: "Ya existe un curso con este título",
+                description: "",
+                clases: 0,
+                time: 0.0,
+                level: "TODOS",
+                logo: "",
+                path: "",
+                teacher: "",
+                reviews: []
+            };
+        },
+        /* modificarCurso(__: void, { curso }) : any {
+            const resultado = database.cursos.filter(curso_ => curso_.title === curso.title) [0];
+            /*const itemCurso = {
+                id: String(database.cursos.length + 1),
+                title: curso.title,
+                description: curso.description,
+                clases: curso.clases,
+                time: curso.time,
+                level: curso.level,
+                logo: curso.logo,
+                path: curso.path,
+                teacher: curso.teacher,
+                reviews: []
+            }
             database.cursos.push(itemCurso);
             return itemCurso;
-        }
+        } */
     }
 }
 

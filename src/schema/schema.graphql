@@ -12,6 +12,7 @@ type Query {
 type Mutation{
     "Agregar un Nuevo Curso a la Academia"
     cursoNuevo(curso: CursoInput!): Curso!
+    "Modificar curso existente"
     modificarCurso(curso: CursoInput!): Curso!
     eliminarCurso(id: ID!): Curso!
 }
