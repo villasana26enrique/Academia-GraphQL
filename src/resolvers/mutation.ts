@@ -22,38 +22,36 @@ const mutation : IResolvers = {
                 database.cursos.push(itemCurso);
                 return itemCurso;
             }
-
-            return {
-                id: "-1",
-                title: "Ya existe un curso con este título",
-                description: "",
-                clases: 0,
-                time: 0.0,
-                level: "TODOS",
-                logo: "",
-                path: "",
-                teacher: "",
-                reviews: []
-            };
+            return respuestaError("Ya existe un curso con este título");
         },
-        /* modificarCurso(__: void, { curso }) : any {
-            const resultado = database.cursos.filter(curso_ => curso_.title === curso.title) [0];
-            /*const itemCurso = {
-                id: String(database.cursos.length + 1),
-                title: curso.title,
-                description: curso.description,
-                clases: curso.clases,
-                time: curso.time,
-                level: curso.level,
-                logo: curso.logo,
-                path: curso.path,
-                teacher: curso.teacher,
-                reviews: []
+        modificarCurso(__: void, { curso }) : any {
+            const elementoExiste = _.findIndex(database.cursos, function(o) {
+                return o.id === curso.id;
+            });
+            if (elementoExiste > -1) {
+                const valoraciones = database.cursos[elementoExiste].reviews;
+                curso.reviews = valoraciones;
+                database.cursos[elementoExiste] = curso;
+                return curso;
             }
-            database.cursos.push(itemCurso);
-            return itemCurso;
-        } */
+            return respuestaError("No se ha encotrado el curso en la BD");
+        }
     }
+}
+
+function respuestaError(title: String): any {
+    return {
+        id: "-1",
+        title: title,
+        description: "",
+        clases: 0,
+        time: 0.0,
+        level: "TODOS",
+        logo: "",
+        path: "",
+        teacher: "",
+        reviews: []
+    };
 }
 
 export default mutation;
